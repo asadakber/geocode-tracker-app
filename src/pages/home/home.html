@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Geocoder
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button block color="secondary" (click)="filterForm()">{{filter}}</button>
+  <form *ngIf="displayForward" [formGroup]="form" (ngSubmit)="performFormwardGeocoding(form.value)">
+    <ion-list>
+      <ion-item margin-bottom>
+          <ion-label>Location</ion-label>
+          <ion-input type="text" formControlName="keyword"></ion-input>
+      </ion-item>
+
+      <ion-item margin-bottom>
+        <button ion-button color="primary" text-center block [disabled]="!form.valid">Geocode this location</button>
+      </ion-item>
+    </ion-list>
+  </form>
+  <form *ngIf="displayReverse" [formGroup]="geoForm" (ngSubmit)="performReverseGeocoding(geoForm.value)">
+    <ion-list>
+        <ion-item margin-bottom>
+          <ion-label>Latitude</ion-label>
+          <ion-input type="text" formControlName="latitude"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom>
+          <ion-label>Longitude</ion-label>
+          <ion-input type="text" formControlName="longitude"></ion-input>
+        </ion-item>
+        <ion-item>
+          <button ion-button color="primary" text-center block [disabled]="!geoForm.valid">Geocode this location</button>
+        </ion-item>
+    </ion-list>
+  </form>
+  <section *ngIf="geocoded">
+      {{results}}
+  </section>
+</ion-content>
